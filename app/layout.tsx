@@ -1,5 +1,5 @@
 import './globals.css';
-import Nav from './Nav';
+import Nav from './common/Nav';
 import { Roboto } from '@next/font/google';
 
 const roboto = Roboto({

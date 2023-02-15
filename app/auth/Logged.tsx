@@ -9,6 +9,9 @@ interface Props {
   image?: string | null;
 }
 
+/**
+ * 로그인 상태일 때 보여지는 컴포넌트
+ */
 export default function Logged({ image }: Props) {
   return (
     <li className="flex items-center gap-8">

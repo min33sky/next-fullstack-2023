@@ -2,6 +2,9 @@
 
 import { signIn } from 'next-auth/react';
 
+/**
+ * 로그인 버튼
+ */
 export default function Login() {
   return (
     <li>
