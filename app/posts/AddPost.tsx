@@ -1,9 +1,8 @@
 'use client';
 
-import { Post } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { addPost } from '../api/posts';
 
@@ -12,21 +11,33 @@ import { addPost } from '../api/posts';
  */
 export default function AddPost() {
   const [title, setTitle] = useState('');
-  const [disabled, setDisabled] = useState(false); //TODO: 지워
+  const toastId = useRef<string>();
 
   const { mutate, isLoading } = useMutation({
     mutationFn: addPost,
     onSuccess(data, variables, context) {
+      toast.success('Post created!! 🔥', {
+        id: toastId.current,
+      });
       setTitle('');
       console.log('data', data);
     },
-    onError(error: AxiosError<Error>, variables, context) {
-      toast.error(error.response?.data.message || 'Something went wrong');
+    onError(error, variables, context) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message, {
+          id: toastId.current,
+        });
+      } else {
+        toast.error('Something went wrong', {
+          id: toastId.current,
+        });
+      }
     },
   });
 
   const submitPost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    toastId.current = toast.loading('Creating post... 🚀');
     mutate(title);
   };
 
@@ -54,10 +65,10 @@ export default function AddPost() {
         <button
           aria-label="Button to create a post"
           disabled={isLoading || title.length === 0}
-          title={disabled ? 'Please wait...' : 'Create Post'}
+          title={isLoading ? 'Please wait...' : 'Create Post'}
           className="rounded-xl bg-teal-600 py-2 px-6 text-sm text-white transition-colors hover:bg-teal-700 disabled:opacity-25"
         >
-          Create Post
+          {isLoading ? 'Please wait...' : 'Create Post'}
         </button>
       </footer>
     </form>
