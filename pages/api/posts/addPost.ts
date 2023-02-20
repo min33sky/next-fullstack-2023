@@ -12,7 +12,7 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(401).json({ message: 'Please Log In' });
     }
 
     const exUser = await prisma.user.findUnique({
@@ -22,7 +22,7 @@ export default async function handler(
     });
 
     if (!exUser) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(401).json({ message: 'No User...' });
     }
 
     const title: string = req.body.title;
@@ -36,7 +36,6 @@ export default async function handler(
     }
 
     try {
-      // TODO: 전송 테스트 해보기
       const result = await prisma.post.create({
         data: {
           title,
@@ -48,12 +47,12 @@ export default async function handler(
         },
       });
 
-      res.status(200).json({ result });
-    } catch (error: any) {
-      // TODO: 에러 처리
-      res.status(500).json({ message: error.message });
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(403).json({ message: 'Something went wrong' });
     }
   } else {
-    res.status(405).json({ message: 'Method not allowed' });
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

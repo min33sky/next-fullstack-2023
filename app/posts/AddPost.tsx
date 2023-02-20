@@ -1,25 +1,29 @@
 'use client';
 
+import { Post } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { AxiosError } from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { addPost } from '../api/posts';
 
 /**
  * 포스트 작성 폼
  */
 export default function AddPost() {
   const [title, setTitle] = useState('');
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(false); //TODO: 지워
 
-  const { mutate, isLoading } = useMutation(
-    async (title: string) => await axios.post('/api/posts/addPost', { title }),
-    {
-      onSuccess: (data) => {
-        console.log('등록 성공!! : ', data);
-        setTitle('');
-      },
+  const { mutate, isLoading } = useMutation({
+    mutationFn: addPost,
+    onSuccess(data, variables, context) {
+      setTitle('');
+      console.log('data', data);
     },
-  );
+    onError(error: AxiosError<Error>, variables, context) {
+      toast.error(error.response?.data.message || 'Something went wrong');
+    },
+  });
 
   const submitPost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,9 +50,10 @@ export default function AddPost() {
         >
           {title.length} / 300
         </p>
+
         <button
           aria-label="Button to create a post"
-          disabled={isLoading}
+          disabled={isLoading || title.length === 0}
           title={disabled ? 'Please wait...' : 'Create Post'}
           className="rounded-xl bg-teal-600 py-2 px-6 text-sm text-white transition-colors hover:bg-teal-700 disabled:opacity-25"
         >
