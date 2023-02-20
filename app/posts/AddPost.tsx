@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { addPost } from '../api/posts';
+import { addPost } from './api/posts';
 
 /**
  * 포스트 작성 폼
