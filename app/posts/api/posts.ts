@@ -1,4 +1,4 @@
-import { Post } from '@prisma/client';
+import { Post } from '@/app/types/posts';
 import axios from 'axios';
 
 /**

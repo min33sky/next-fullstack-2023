@@ -20,7 +20,6 @@ export default function AddPost() {
         id: toastId.current,
       });
       setTitle('');
-      console.log('data', data);
     },
     onError(error, variables, context) {
       if (error instanceof AxiosError) {

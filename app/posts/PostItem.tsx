@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { Post } from '../types/posts';
+import type { Post } from '../types/posts';
 
 interface Props extends Post {}
 
