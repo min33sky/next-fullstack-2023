@@ -29,7 +29,7 @@ export default function PostList({ posts }: Props) {
 
   return (
     <div>
-      {data.map((post) => (
+      {data?.map((post) => (
         <PostItem key={post.id} {...post} />
       ))}
     </div>
