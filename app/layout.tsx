@@ -1,6 +1,7 @@
 import './globals.css';
 import Nav from './common/Nav';
 import { Roboto } from '@next/font/google';
+import ReactQueryWrapper from './lib/QueryWrapper';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -23,9 +24,11 @@ export default function RootLayout({
       <body
         className={`mx-4 bg-slate-800 text-slate-300 md:mx-48 xl:mx-96 ${roboto.className}`}
       >
-        {/* @ts-expect-error Server Component */}
-        <Nav />
-        {children}
+        <ReactQueryWrapper>
+          {/* @ts-expect-error Server Component */}
+          <Nav />
+          {children}
+        </ReactQueryWrapper>
       </body>
     </html>
   );

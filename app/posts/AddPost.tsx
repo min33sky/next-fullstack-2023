@@ -1,5 +1,7 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useState } from 'react';
 
 /**
@@ -9,11 +11,23 @@ export default function AddPost() {
   const [title, setTitle] = useState('');
   const [disabled, setDisabled] = useState(false);
 
+  const { mutate, isLoading } = useMutation(
+    async (title: string) => await axios.post('/api/posts/addPost', { title }),
+    {
+      onSuccess: (data) => {
+        console.log('등록 성공!! : ', data);
+        setTitle('');
+      },
+    },
+  );
+
+  const submitPost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate(title);
+  };
+
   return (
-    <form
-      onSubmit={() => alert('준비중....')}
-      className="my-8 rounded-md bg-slate-50 p-8"
-    >
+    <form onSubmit={submitPost} className="my-8 rounded-md bg-slate-50 p-8">
       <div className="my-4 flex flex-col">
         <textarea
           name="title"
@@ -34,7 +48,7 @@ export default function AddPost() {
         </p>
         <button
           aria-label="Button to create a post"
-          disabled={disabled}
+          disabled={isLoading}
           title={disabled ? 'Please wait...' : 'Create Post'}
           className="rounded-xl bg-teal-600 py-2 px-6 text-sm text-white transition-colors hover:bg-teal-700 disabled:opacity-25"
         >
