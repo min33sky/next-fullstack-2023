@@ -9,14 +9,16 @@ interface Props {
 
 export default function DeleteModal({ onDelete, closeModal }: Props) {
   return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-        closeModal();
-      }}
-      className="fixed left-0 top-0 z-20 h-full w-full bg-black/80"
-    >
-      <div className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-6 rounded-lg bg-white p-12">
+    <>
+      <div
+        className="fixed left-0 top-0 z-20 h-full w-full bg-black/80"
+        onClick={(e) => {
+          e.stopPropagation();
+          closeModal();
+        }}
+      />
+
+      <article className="fixed top-1/2 left-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-6 rounded-lg bg-white p-12">
         <h2 className="text-x text-gray-700">
           Are you sure you want to delete this post? 😬
         </h2>
@@ -29,7 +31,7 @@ export default function DeleteModal({ onDelete, closeModal }: Props) {
         >
           Delete Post
         </button>
-      </div>
-    </div>
+      </article>
+    </>
   );
 }
