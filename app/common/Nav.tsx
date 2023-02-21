@@ -7,7 +7,8 @@ import Login from '../auth/Login';
 export default async function Nav() {
   const session = await getServerSession(authOptions);
 
-  console.log('##### 로그인 세션: ', session);
+  console.log('[nextauth_url] : ', process.env.NEXTAUTH_URL);
+  console.log('[Nav] 로그인 세션 : ', session);
 
   return (
     <nav className="flex items-center justify-between py-8">

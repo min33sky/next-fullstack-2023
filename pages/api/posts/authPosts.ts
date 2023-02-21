@@ -8,15 +8,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  // FIXME: 왜 session Null이 뜨냐?????????
+  // FIXME: 왜 session이 Null이 뜨냐?????????
   // const session = await getServerSession(req, res, authOptions);
-  // console.log('세ㅔㅔㅔㅔ션: ', session);
+  // console.log('세션: ', session);
 
   // if (!session) {
   //   return res.status(401).json({ message: 'You must be logged in.' });
   // }
 
-  //? session을 못찾아서 email을 쿼리스트링으로 받아옴
+  // TODO: email 대신 id로 바꾸기
+  // TODO: qs 대신 params로 바꾸기
+  //? session을 못찾아서 email을 쿼리스트링으로 받아오는 식으로 해결함
   const email = req.query.email as string;
 
   if (req.method === 'GET') {
@@ -44,6 +46,12 @@ export default async function handler(
               comments: {
                 orderBy: {
                   createdAt: 'desc',
+                },
+              },
+              author: {
+                select: {
+                  name: true,
+                  image: true,
                 },
               },
             },

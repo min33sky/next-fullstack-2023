@@ -16,3 +16,11 @@ export async function getPosts() {
   const { data } = await axios.get<Post[]>('/api/posts/getPosts');
   return data;
 }
+
+/**
+ * 포스트 삭제 함수
+ * @param postId 포스트 아이디
+ */
+export async function deletePost(postId: string) {
+  return await axios.delete<Post>(`/api/posts/deletePost?postId=${postId}`);
+}

@@ -11,7 +11,7 @@ export default async function handler(
   if (req.method === 'POST') {
     const session = await getServerSession(req, res, authOptions);
 
-    console.log('세ㅔㅔㅔㅔ션: ', session);
+    console.log('[addPost] 세션 : ', session);
 
     if (!session) {
       return res.status(401).json({ message: 'Please Log In' });
