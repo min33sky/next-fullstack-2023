@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { deletePost } from '../posts/api/posts';
 import { Post } from '../types/posts';
+import DeleteModal from './DeleteModal';
 
 interface Props extends Post {}
 
@@ -27,6 +28,7 @@ export default function EditPost({
         id: deleteToastId.current,
       });
       queryClient.invalidateQueries(['getMyStatus', authorId]);
+      setOpenModal(false);
     },
     onError() {
       toast.error('Something went wrong!', {
@@ -59,8 +61,7 @@ export default function EditPost({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              // TODO: 모달 띄우기
-              handleDeletePost();
+              setOpenModal(true);
             }}
             className="text-sm font-bold text-red-500"
           >
@@ -69,6 +70,12 @@ export default function EditPost({
         </footer>
       </article>
       {/* TODO: 삭제 모달 */}
+      {openModal && (
+        <DeleteModal
+          onDelete={handleDeletePost}
+          closeModal={() => setOpenModal(false)}
+        />
+      )}
     </>
   );
 }
