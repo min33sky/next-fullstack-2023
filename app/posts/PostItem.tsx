@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -14,10 +15,14 @@ export default function PostItem({
   comments,
 }: Props) {
   // XXX : 나중에 useSWR가 필요하나?????????????????
-  // TODO: FramerMotion 적용하기
 
   return (
-    <article className="my-8 rounded-lg bg-white p-8">
+    <motion.article
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ ease: 'easeOut', duration: 0.5 }}
+      className="my-8 rounded-lg bg-white p-8"
+    >
       <header className="flex items-center gap-2">
         <Image
           className="rounded-full"
@@ -44,6 +49,6 @@ export default function PostItem({
           </p>
         </Link>
       </footer>
-    </article>
+    </motion.article>
   );
 }
