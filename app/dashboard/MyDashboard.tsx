@@ -11,8 +11,8 @@ interface Props {
 
 export default function MyDashboard({ myStatus }: Props) {
   const { data, isLoading } = useQuery({
-    queryKey: ['getMyStatus', myStatus.email],
-    queryFn: () => getMyStatus(myStatus.email),
+    queryKey: ['getMyStatus', myStatus.id],
+    queryFn: () => getMyStatus(myStatus.id),
     initialData: myStatus,
     onSuccess(data) {
       console.log('데이터 가져오기 성공: ', data);

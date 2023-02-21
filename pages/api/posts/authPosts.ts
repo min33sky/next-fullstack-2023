@@ -16,14 +16,17 @@ export default async function handler(
   //   return res.status(401).json({ message: 'You must be logged in.' });
   // }
 
-  // TODO: email 대신 id로 바꾸기
-  // TODO: qs 대신 params로 바꾸기
-  //? session을 못찾아서 email을 쿼리스트링으로 받아오는 식으로 해결함
+  /**
+   *? session을 못찾아서 email을 쿼리스트링으로 받아오는 식으로 해결함
+   *? 서버에서의 호출은 email, 클라이언트에서 호출은 id로 가져옴
+   */
   const email = req.query.email as string;
+  const id = req.query.id as string;
 
   if (req.method === 'GET') {
     const exUser = await prisma.user.findUnique({
       where: {
+        id,
         email,
       },
     });
@@ -35,6 +38,7 @@ export default async function handler(
     try {
       const result = await prisma.user.findUnique({
         where: {
+          id,
           email,
         },
         include: {

@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -12,10 +12,12 @@ export default function EditPost({
   title,
   createdAt,
   updatedAt,
+  authorId,
   comments,
   author,
 }: Props) {
   const [openModal, setOpenModal] = useState(false);
+  const queryClient = useQueryClient();
   const deleteToastId = useRef<string>();
 
   const { mutate } = useMutation({
@@ -24,8 +26,7 @@ export default function EditPost({
       toast.success('Your post has been deleted!', {
         id: deleteToastId.current,
       });
-
-      // TODO: 쿼리 무효화
+      queryClient.invalidateQueries(['getMyStatus', authorId]);
     },
     onError() {
       toast.error('Something went wrong!', {
