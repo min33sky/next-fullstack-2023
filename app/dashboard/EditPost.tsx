@@ -37,6 +37,9 @@ export default function EditPost({
     },
   });
 
+  /**
+   *
+   */
   const handleDeletePost = () => {
     deleteToastId.current = toast.loading('Deleting your post...');
     mutate(id);
@@ -69,7 +72,7 @@ export default function EditPost({
           </button>
         </footer>
       </article>
-      {/* TODO: 삭제 모달 */}
+
       {openModal && (
         <DeleteModal
           onDelete={handleDeletePost}
