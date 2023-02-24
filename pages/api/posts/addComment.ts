@@ -46,7 +46,7 @@ export default async function handler(
     try {
       const newComment = await prisma.comment.create({
         data: {
-          title: comment,
+          text: comment,
           author: {
             connect: {
               id: exUser.id,
