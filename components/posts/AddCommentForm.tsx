@@ -75,7 +75,7 @@ export default function AddCommentForm({ postId }: Props) {
       </div>
       <p
         className={`font-bold  ${
-          commentText.length > 300 ? 'text-red-700' : 'text-slate-300'
+          commentText.length > 200 ? 'text-red-700' : 'text-slate-300'
         } `}
       >
         {commentText.length} / 200
