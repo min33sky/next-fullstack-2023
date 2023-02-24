@@ -14,12 +14,18 @@ export async function getPostById(id: string) {
 
 /**
  * 댓글 작성 함수
- * @param postId 포스트 아이디
- * @param comment 댓글 내용
  */
-export async function addComment(postId: string, comment: string) {
-  return await axios.post<PostDetailType>('/api/posts/addComment', {
+export async function addComment({
+  postId,
+  comment,
+}: {
+  postId: string;
+  comment: string;
+}) {
+  const { data } = await axios.post<PostDetailType>('/api/posts/addComment', {
     postId,
     comment,
   });
+
+  return data;
 }
