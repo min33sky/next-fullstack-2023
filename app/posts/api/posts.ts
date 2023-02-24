@@ -1,6 +1,8 @@
 import { Post } from '@/types/posts';
 import axios from 'axios';
 
+// TODO: 루트 api 폴더로 이사가자
+
 /**
  * 포스트 등록 함수
  * @param title 내용

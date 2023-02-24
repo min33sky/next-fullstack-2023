@@ -21,7 +21,7 @@ export default function Logged({ image }: Props) {
       >
         Sign Out
       </button>
-      <Link href={'/dashboard'}>
+      <Link title="대시보드" href={'/dashboard'}>
         {image ? (
           <Image
             width={64}

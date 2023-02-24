@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { prisma } from '@/prisma/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { getServerSession } from 'next-auth';
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,10 +10,10 @@ export default async function handler(
 ) {
   // FIXME: 왜 session이 Null이 뜨냐?????????
   // const session = await getServerSession(req, res, authOptions);
-  // console.log('세션: ', session);
+  // console.log('##### [authPosts] 세션::::::::: ', session);
 
   // if (!session) {
-  //   return res.status(401).json({ message: 'You must be logged in.' });
+  // return res.status(401).json({ message: 'You must be logged in.' });
   // }
 
   /**
