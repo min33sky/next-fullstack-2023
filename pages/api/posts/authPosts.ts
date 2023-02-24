@@ -9,6 +9,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   // FIXME: 왜 session이 Null이 뜨냐?????????
+  //? NextAuth의 쿠키를 못받아서 그런거 같은디????????????
   // const session = await getServerSession(req, res, authOptions);
   // console.log('##### [authPosts] 세션::::::::: ', session);
 
