@@ -7,6 +7,13 @@ interface Props {
   postId: string;
 }
 
+// TODO: 댓글 입력폼 구현
+/**
+ * [x]: 포스트 아이디와 댓글 작성자의 아이디가 필요
+ * [ ]: 댓글 전송 후 댓글에 관한 쿼리 무효화 또는 optimistic update 필요
+ * [x]: toast 띄우기
+ */
+
 /**
  * 댓글 입력폼
  */
@@ -37,20 +44,11 @@ export default function AddCommentForm({ postId }: Props) {
     },
   });
 
-  // TODO: 댓글 입력폼 구현
-  /**
-   * [x]: 포스트 아이디와 댓글 작성자의 아이디가 필요
-   * [ ]: 댓글 전송 후 댓글에 관한 쿼리 무효화 또는 optimistic update 필요
-   * [ ]: toast 띄우기
-   */
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (commentText.trim().length === 0) {
-      toast.error('댓글을 입력해주세요');
-      return;
+    if (commentText.trim().length === 0 || commentText.length > 200) {
+      return toast.error('댓글은 1자 이상 200자 이하로 작성해주세요');
     }
-
     commentToastId.current = toast.loading('댓글을 등록중입니다...');
     mutate();
   };
@@ -80,7 +78,7 @@ export default function AddCommentForm({ postId }: Props) {
           commentText.length > 300 ? 'text-red-700' : 'text-slate-300'
         } `}
       >
-        {commentText.length} / 300
+        {commentText.length} / 200
       </p>
     </form>
   );
