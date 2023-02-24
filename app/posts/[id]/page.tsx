@@ -17,12 +17,7 @@ export default async function PageDetailPage({
 }: Props) {
   const post = await getPostDetail(id);
 
-  return (
-    <div>
-      <PostDetail post={post} />
-      {/* TODO: 댓글 보여줄 뷰 만들기 */}
-    </div>
-  );
+  return <PostDetail post={post} />;
 }
 
 async function getPostDetail(id: string) {
