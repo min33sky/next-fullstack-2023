@@ -1,4 +1,4 @@
-import { User } from '@/app/types/user';
+import { User } from '@/types/user';
 import axios from 'axios';
 
 // TODO: api route 교체해야함 (posts -> users)

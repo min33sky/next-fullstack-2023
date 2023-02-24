@@ -1,7 +1,7 @@
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { User } from '../types/user';
+import { User } from '../../types/user';
 import MyDashboard from './MyDashboard';
 
 export default async function DashboardPage() {

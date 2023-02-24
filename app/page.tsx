@@ -1,6 +1,6 @@
 import AddPost from './posts/AddPost';
 import PostList from './posts/PostList';
-import { Post } from './types/posts';
+import { Post } from '../types/posts';
 
 export default async function Home() {
   const data = await getAllPosts();

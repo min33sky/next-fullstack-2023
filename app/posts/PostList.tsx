@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import type { Post } from '../types/posts';
+import type { Post } from '../../types/posts';
 import { getPosts } from './api/posts';
 import PostItem from './PostItem';
 

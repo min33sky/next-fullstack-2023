@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { User } from '../types/user';
+import { User } from '../../types/user';
 import { getMyStatus } from './api/user';
 import EditPost from './EditPost';
 

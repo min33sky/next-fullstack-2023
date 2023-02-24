@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { deletePost } from '../posts/api/posts';
-import { Post } from '../types/posts';
+import { Post } from '../../types/posts';
 import DeleteModal from './DeleteModal';
 
 interface Props extends Post {}

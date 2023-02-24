@@ -1,4 +1,4 @@
-import { Post } from '@/app/types/posts';
+import { Post } from '@/types/posts';
 import axios from 'axios';
 
 /**
