@@ -11,6 +11,7 @@ export interface Post {
   author: Author;
   comments: Comment[];
   hearts: Heart[];
+  isHearted?: boolean;
 }
 
 export interface PostDetailType {

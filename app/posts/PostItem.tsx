@@ -17,13 +17,16 @@ export default function PostItem({
   author,
   comments,
   hearts,
+  isHearted,
 }: Props) {
   // XXX : 나중에 useSWR가 필요하나?????????????????
 
   // TODO: 내가 좋아요한 포스트인지 확인하기
 
+  console.log('좋아요: ', isHearted);
+
   const { mutate, isLoading } = useMutation({
-    mutationFn: cancelLike, // TODO: 좋아요, 좋아요 취소를 따로 구현해야함
+    mutationFn: isHearted ? cancelLike : addLike, // TODO: 좋아요, 좋아요 취소를 따로 구현해야함
     onSuccess(data) {
       console.log('좋아요 성공: ', data);
     },
@@ -71,7 +74,9 @@ export default function PostItem({
           <HeartIcon
             aria-label="Like Post"
             title="좋아요"
-            className="h-5 w-5 text-rose-500"
+            className={`h-5 w-5 text-rose-500 ${
+              isHearted ? 'fill-current' : ''
+            }`}
             onClick={handleLike}
           />
           <span className="text-sm font-bold text-gray-700">
