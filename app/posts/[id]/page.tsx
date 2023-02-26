@@ -5,16 +5,12 @@ import React from 'react';
 
 interface Props {
   params: { id: string };
-  searchParams: Record<string, string>;
 }
 
 /**
  * 상세 페이지
  */
-export default async function PageDetailPage({
-  params: { id },
-  searchParams,
-}: Props) {
+export default async function PageDetailPage({ params: { id } }: Props) {
   const post = await getPostDetail(id);
 
   return <PostDetail post={post} />;

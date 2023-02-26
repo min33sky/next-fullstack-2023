@@ -30,7 +30,7 @@ async function getMyStatus(email: string) {
   const res = await fetch(
     `${process.env.BASE_URL}/api/posts/authPosts?email=${email}`,
     {
-      cache: 'no-store',
+      // cache: 'no-store',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
