@@ -26,7 +26,9 @@ async function getAllPosts() {
       'Content-Type': 'application/json',
       cookie,
     },
+    cache: 'no-store',
   });
+
   const posts: Post[] = await res.json();
 
   return posts;

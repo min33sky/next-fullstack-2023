@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import type { Post } from '../../types/posts';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addLike, cancelLike } from '@/api/posts';
 
 interface Props extends Post {}
@@ -20,19 +20,50 @@ export default function PostItem({
   isHearted,
 }: Props) {
   // XXX : 나중에 useSWR가 필요하나?????????????????
-
-  // TODO: 내가 좋아요한 포스트인지 확인하기
-
-  console.log('좋아요: ', isHearted);
+  const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: isHearted ? cancelLike : addLike, // TODO: 좋아요, 좋아요 취소를 따로 구현해야함
-    onSuccess(data) {
-      console.log('좋아요 성공: ', data);
+    mutationFn: isHearted ? cancelLike : addLike,
+    /**
+     * Optimistic UI
+     */
+    async onMutate(postId) {
+      await queryClient.cancelQueries(['getPosts']);
+
+      const previousPosts = queryClient.getQueryData(['getPosts']);
+
+      queryClient.setQueryData(['getPosts'], (old: any) => {
+        return old.map((post: Post) => {
+          if (post.id === id) {
+            return {
+              ...post,
+              hearts: isHearted
+                ? [...post.hearts].slice(0, -1)
+                : [
+                    ...post.hearts,
+                    {
+                      id: 'temp',
+                      postId: id,
+                      userId: 'temp',
+                    },
+                  ],
+              isHearted: !isHearted,
+            };
+          }
+          return post;
+        });
+      });
+
+      return { previousPosts };
     },
-    onError(error) {
-      console.log('좋아요 실패: ', error);
+
+    onError(error, variables, context: any) {
+      queryClient.setQueryData(['getPosts'], context.previousPosts);
     },
+
+    // onSettled() {
+    //   queryClient.invalidateQueries(['getPosts']);
+    // },
   });
 
   /**
