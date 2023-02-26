@@ -19,6 +19,7 @@ model Post {
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
   comments  Comment[]
+  hearts    Heart[]
 }
 
 model Comment {
@@ -30,6 +31,16 @@ model Comment {
   postId    String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+}
+
+model Heart {
+  id     String @id @default(cuid())
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@unique([postId, userId])
 }
 
 model Account {
@@ -69,6 +80,7 @@ model User {
   sessions      Session[]
   posts         Post[]
   comments      Comment[]
+  hearts        Heart[]
 }
 
 model VerificationToken {

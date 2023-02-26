@@ -12,6 +12,7 @@ export default async function handler(
 
   console.log('[nextauth_url] : ', process.env.NEXTAUTH_URL);
   console.log('[getPosts] 세션 : ', session);
+  console.log('[getPosts] 쿠키 : ', req.cookies);
 
   if (req.method === 'GET') {
     try {

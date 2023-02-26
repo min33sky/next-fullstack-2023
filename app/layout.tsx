@@ -31,8 +31,7 @@ export default async function RootLayout({
       <body
         className={`mx-4 bg-slate-800 text-slate-300 md:mx-48 xl:mx-96 ${roboto.className}`}
       >
-        {/* TODO: sessionProverder 구현 */}
-        <SessionProviderWrapper session={null}>
+        <SessionProviderWrapper session={session}>
           <ReactQueryWrapper>
             {/* @ts-expect-error Server Component */}
             <Nav />

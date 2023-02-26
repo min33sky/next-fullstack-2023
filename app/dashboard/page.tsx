@@ -28,9 +28,13 @@ async function getMyStatus(email: string) {
    *? email을 query로 넘겨주는데, 왜냐하면 apiRoute에서 session을 인식하지 못해서 이런식으로 넘겨줌.
    */
   const res = await fetch(
-    `http://localhost:3000/api/posts/authPosts?email=${email}`,
+    `${process.env.BASE_URL}/api/posts/authPosts?email=${email}`,
     {
       cache: 'no-store',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
   );
 

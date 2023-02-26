@@ -10,8 +10,10 @@ export default async function handler(
 ) {
   // FIXME: 왜 session이 Null이 뜨냐?????????
   //? NextAuth의 쿠키를 못받아서 그런거 같은디????????????
-  // const session = await getServerSession(req, res, authOptions);
-  // console.log('##### [authPosts] 세션::::::::: ', session);
+  const session = await getServerSession(req, res, authOptions);
+
+  console.log('##### [authPosts] 세션::::::::: ', session);
+  console.log('##### [authPosts] 쿠키::::::::: ', req.cookies);
 
   // if (!session) {
   // return res.status(401).json({ message: 'You must be logged in.' });
