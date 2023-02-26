@@ -29,3 +29,25 @@ export async function addComment({
 
   return data;
 }
+
+/**
+ * 좋아요 추가 함수
+ */
+export async function addLike(postId: string) {
+  const { data } = await axios.post<PostDetailType>(
+    `/api/posts/addLike?postId=${postId}`,
+    {},
+  );
+
+  return data;
+}
+
+/**
+ * 좋아요 취소 함수
+ */
+export async function cancelLike(postId: string) {
+  const { data } = await axios.delete<PostDetailType>(
+    `/api/posts/addLike?postId=${postId}`,
+  );
+  return data;
+}

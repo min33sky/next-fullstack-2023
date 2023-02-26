@@ -14,7 +14,7 @@ export default async function Home() {
 }
 
 async function getAllPosts() {
-  const res = await fetch(`http://localhost:3000/api/posts/getPosts`);
+  const res = await fetch(`${process.env.BASE_URL}/api/posts/getPosts`);
   const posts: Post[] = await res.json();
 
   return posts;
