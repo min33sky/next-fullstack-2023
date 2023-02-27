@@ -58,3 +58,7 @@ async function getAllPosts() {
   return posts;
 }
 ```
+
+## Reference
+
+- [Next13 + ReactQuery + SSR](https://tanstack.com/query/latest/docs/react/guides/ssr)
