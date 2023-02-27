@@ -27,20 +27,21 @@ export default function PostItem({
   // XXX : 나중에 useSWR가 필요하나?????????????????
   const queryClient = useQueryClient();
 
-  console.log('postID, isHearted', id, isHearted);
-
   const { mutate, isLoading } = useMutation({
     mutationFn: isHearted ? cancelLike : addLike,
     /**
      * Optimistic UI
      */
     async onMutate(postId) {
-      await queryClient.cancelQueries(['getPosts']);
+      await queryClient.cancelQueries({
+        queryKey: ['getPosts'],
+      });
 
-      const previousPosts = queryClient.getQueryData(['getPosts']);
+      const previousPosts = queryClient.getQueryData<Post[]>(['getPosts']);
 
-      queryClient.setQueryData(['getPosts'], (old: any) => {
-        return old.map((post: Post) => {
+      queryClient.setQueryData(
+        ['getPosts'],
+        previousPosts?.map((post: Post) => {
           if (post.id === id) {
             return {
               ...post,
@@ -58,18 +59,20 @@ export default function PostItem({
             };
           }
           return post;
-        });
-      });
+        }),
+      );
 
       return { previousPosts };
     },
 
-    onError(error, variables, context: any) {
-      queryClient.setQueryData(['getPosts'], context.previousPosts);
+    onError(error, variables, context) {
+      queryClient.setQueryData(['getPosts'], context?.previousPosts);
     },
 
     onSettled() {
-      queryClient.invalidateQueries(['getPosts']);
+      queryClient.invalidateQueries({
+        queryKey: ['getPosts'],
+      });
     },
   });
 
