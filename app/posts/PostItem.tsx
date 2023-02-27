@@ -3,11 +3,15 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import { HeartIcon } from '@heroicons/react/24/outline';
 import type { Post } from '../../types/posts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addLike, cancelLike } from '@/api/posts';
+import dynamic from 'next/dynamic';
+
+//? Dynamic import (Hydration Error때문에 )
+const HeartButton = dynamic(() => import('@/components/posts/HeartButton'), {
+  ssr: false,
+});
 
 interface Props extends Post {}
 
@@ -15,7 +19,6 @@ export default function PostItem({
   id,
   title,
   createdAt,
-  updatedAt,
   author,
   comments,
   hearts,
@@ -65,9 +68,9 @@ export default function PostItem({
       queryClient.setQueryData(['getPosts'], context.previousPosts);
     },
 
-    // onSettled() {
-    //   queryClient.invalidateQueries(['getPosts']);
-    // },
+    onSettled() {
+      queryClient.invalidateQueries(['getPosts']);
+    },
   });
 
   /**
@@ -103,21 +106,12 @@ export default function PostItem({
       </div>
 
       <footer className="flex cursor-pointer items-center justify-between gap-4">
-        {/* TODO: 좋아요 버튼과 개수 */}
-        <div className="flex items-center space-x-2">
-          {/* 내가 좋아요한 포스트일 땐 fill-current classname 붙이기 */}
-          <HeartIcon
-            aria-label="Like Post"
-            title="좋아요"
-            className={`h-5 w-5 text-rose-500 ${
-              isHearted ? 'fill-current' : ''
-            }`}
-            onClick={handleLike}
-          />
-          <span className="text-sm font-bold text-gray-700">
-            {hearts.length ?? 0}
-          </span>
-        </div>
+        <HeartButton
+          aria-label="Like Post"
+          isHearted={isHearted ?? false}
+          likesCount={hearts.length}
+          handleLike={handleLike}
+        />
 
         <Link
           href={{

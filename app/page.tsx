@@ -15,6 +15,7 @@ export default async function Home() {
 }
 
 async function getAllPosts() {
+  //? Next-Auth의 쿠키를 가져와 API 호출할 때 헤더에 넣어준다. (API Route에서 Session을 가져오기 위해)
   const nextCookies = cookies();
   const cookie = nextCookies.getAll().reduce((acc, cur) => {
     return `${acc}${cur.name}=${cur.value}; `;
@@ -26,7 +27,6 @@ async function getAllPosts() {
       'Content-Type': 'application/json',
       cookie,
     },
-    cache: 'no-store',
   });
 
   const posts: Post[] = await res.json();
