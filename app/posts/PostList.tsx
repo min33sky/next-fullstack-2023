@@ -28,7 +28,7 @@ export default function PostList({ posts }: Props) {
   }
 
   return (
-    <div>
+    <div className="grid grid-cols-fluid gap-4">
       {data?.map((post) => (
         <PostItem key={post.id} {...post} />
       ))}

@@ -1,21 +1,27 @@
 import './globals.css';
 import Nav from './common/Nav';
-import { Roboto, Nanum_Brush_Script } from '@next/font/google';
 import ReactQueryWrapper from '../lib/QueryWrapper';
 import SessionProviderWrapper from '@/components/common/SessionProviderWrapper';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import LocalFont from '@next/font/local';
 
-const roboto = Roboto({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  variable: '--font-roboto',
-});
-
-const nanumBrush = Nanum_Brush_Script({
-  weight: ['400'],
-  subsets: ['latin'],
-  variable: '--font-nanum-brush',
+const pretendard = LocalFont({
+  variable: '--font-pretendard',
+  src: [
+    {
+      path: './fonts/Pretendard-Light.woff2',
+      weight: '300',
+    },
+    {
+      path: './fonts/Pretendard-Regular.woff2',
+      weight: '400',
+    },
+    {
+      path: './fonts/Pretendard-Bold.woff2',
+      weight: '700',
+    },
+  ],
 });
 
 export default async function RootLayout({
@@ -35,7 +41,7 @@ export default async function RootLayout({
       */}
       <head />
       <body
-        className={`mx-4 bg-slate-800 text-slate-300 md:mx-48 xl:mx-96 ${roboto.variable} ${nanumBrush.variable} font-nanumBrush`}
+        className={`mx-4 bg-primary  font-pretendard text-slate-300 md:mx-48 xl:mx-96 ${pretendard.variable}`}
       >
         <SessionProviderWrapper session={session}>
           <ReactQueryWrapper>
