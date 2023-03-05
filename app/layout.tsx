@@ -1,6 +1,6 @@
 import './globals.css';
 import Nav from './common/Nav';
-import { Roboto } from '@next/font/google';
+import { Roboto, Nanum_Brush_Script } from '@next/font/google';
 import ReactQueryWrapper from '../lib/QueryWrapper';
 import SessionProviderWrapper from '@/components/common/SessionProviderWrapper';
 import { getServerSession } from 'next-auth';
@@ -10,6 +10,12 @@ const roboto = Roboto({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-roboto',
+});
+
+const nanumBrush = Nanum_Brush_Script({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-nanum-brush',
 });
 
 export default async function RootLayout({
@@ -29,7 +35,7 @@ export default async function RootLayout({
       */}
       <head />
       <body
-        className={`mx-4 bg-slate-800 text-slate-300 md:mx-48 xl:mx-96 ${roboto.className}`}
+        className={`mx-4 bg-slate-800 text-slate-300 md:mx-48 xl:mx-96 ${roboto.variable} ${nanumBrush.variable} font-nanumBrush`}
       >
         <SessionProviderWrapper session={session}>
           <ReactQueryWrapper>

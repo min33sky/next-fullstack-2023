@@ -9,7 +9,12 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        loboto: ['var(--font-loboto)'],
+        nanumBrush: ['var(--font-nanum-brush)'],
+      },
+    },
   },
   plugins: [],
 };
