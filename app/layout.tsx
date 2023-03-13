@@ -4,7 +4,7 @@ import ReactQueryWrapper from '../lib/QueryWrapper';
 import SessionProviderWrapper from '@/components/common/SessionProviderWrapper';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import LocalFont from '@next/font/local';
+import LocalFont from 'next/font/local';
 
 const pretendard = LocalFont({
   variable: '--font-pretendard',
@@ -30,8 +30,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-
-  console.log('##### [layout] session ::::::: ', session);
 
   return (
     <html lang="ko">
