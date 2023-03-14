@@ -5,6 +5,17 @@ import SessionProviderWrapper from '@/components/common/SessionProviderWrapper';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import LocalFont from 'next/font/local';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Next.js + TypeScript + Tailwind CSS',
+  description:
+    'A starter template for Next.js with TypeScript and Tailwind CSS',
+  openGraph: {
+    url: 'https://nextjs-typescript-tailwindcss.vercel.app/',
+    title: 'Next.js + TypeScript + Tailwind CSS',
+  },
+};
 
 const pretendard = LocalFont({
   variable: '--font-pretendard',
